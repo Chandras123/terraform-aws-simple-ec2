@@ -1,7 +1,7 @@
 output "instance_id" {
-  value = aws_instance.web_server.id
+  value = aws_instance.chan.id
 }
 
 output "public_ip" {
-  value = aws_instance.web_server.public_ip
+  value = aws_instance.chan.public_ip
 }

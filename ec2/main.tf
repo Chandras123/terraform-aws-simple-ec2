@@ -2,21 +2,11 @@ provider "aws" {
   region = var.aws_region
 }
 
-resource "aws_vpc" "main_vpc" {
-  cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_subnet" "main_subnet" {
-  vpc_id            = aws_vpc.main_vpc.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = var.availability_zone
-}
 
 resource "aws_security_group" "web_sg" {
   name        = "web_sg"
   description = "Allow HTTP and SSH"
-  vpc_id      = aws_vpc.main_vpc.id
-
+ 
   ingress {
     from_port   = 22
     to_port     = 22
@@ -39,13 +29,13 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-resource "aws_instance" "web_server" {
+resource "aws_instance" "chan" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.main_subnet.id
+  
   security_groups = [aws_security_group.web_sg.name]
 
   tags = {
-    Name = "WebServer"
+    Name = "chan-ec2-instance"
   }
 }
